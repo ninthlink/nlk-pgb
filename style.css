@@ -65,11 +65,20 @@ body.slide-open {
 		height: 100%;
 		width: 100%;
 	}
-	#left-navbar span.menu-text {
-		width: 100%;
+	.navbar-middle {
+		height: auto;
+		left: 50%;
+		margin-left: -25px;
+		margin-top: -10px;
+		top: 50%;
+		transform: rotate(-90deg);
+		width: auto;
 	}
 
 /* This is the navbar text and icons plus animations and all that */
+	#left-navbar span.menu-text {
+		width: 100%;
+	}
 	#menu-slidepanel-toggle,
 	#social-slidepanel-toggle {
 		display: block;

@@ -15,6 +15,9 @@
 			<span class="menu-text">menu</span>
 		</a>
 	</div>
+	<div class="leftnav-block navbar-middle">
+		<span>ninthlink</span>
+	</div>
 	<div class="leftnav-block navbar-bottom">
 		<a id="social-slidepanel-toggle" data-action="slidepanel" data-target="#social-slidepanel" data-text="social" class="" href="#social-slidepanel" >
 			<span class="menu-text">social</span>
