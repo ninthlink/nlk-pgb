@@ -13,7 +13,7 @@ function pgb_child_enqueue_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'pgb_child_enqueue_scripts' );
 function pgb_child_enqueue_scripts() {
-	wp_enqueue_script( 'nlk-js', get_stylesheet_directory_uri() . '/js/nlk.js' );
+	wp_enqueue_script( 'nlk-js', get_stylesheet_directory_uri() . '/js/nlk.js', array('jquery') );
 }
 
 
