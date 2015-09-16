@@ -10,4 +10,184 @@
  License URI:  http://www.gnu.org/licenses/gpl-2.0.html
 */
 
-/* and then? */
+
+/*
+
+1.0 - Navbar
+2.0 - Slidepanels
+3.0 - Icons
+
+*/
+body {
+	margin-left: 66px; /* fix for left side menu bar */
+	min-height: 100%;
+	position: relative; /* fix for full width slidepanel */
+}
+body.slide-open {
+	overflow-y: scroll;
+	position: fixed;
+}
+
+/*
+1.0 - LEFT NAVBAR
+*/
+#left-navbar {
+	background-color: #fff;
+	border-right: 1px solid #414042;
+	bottom: 0;
+	left: 0;
+	position: fixed;
+	text-align: center;
+	top: 0;
+	width: 66px;
+	z-index: 9999;
+}
+body.admin-bar #left-navbar {
+	top: 31px;
+}
+#left-navbar a {
+	color: #414042;
+	text-decoration: none;
+}
+.leftnav-block {
+	height: 80px;
+	position: absolute;
+	text-align: center;
+	width: 100%;
+}
+.navbar-top {
+	top: 0;
+}
+.navbar-bottom {
+	bottom: 0;
+}
+.leftnav-block a {
+	display: block;
+	height: 100%;
+	width: 100%;
+}
+#left-navbar span.menu-text {
+	width: 100%;
+}
+
+
+
+#menu-slidepanel-toggle,
+#social-slidepanel-toggle {
+	display: block;
+	position: relative;
+}
+#menu-slidepanel-toggle span,
+#social-slidepanel-toggle span {
+	display: block;
+	position: absolute;
+	width: 100%;
+}
+#menu-slidepanel-toggle span.menu-text {
+	top: 60px;
+}
+#menu-slidepanel-toggle span.menu-nav-svg {
+	top: 10px;
+}
+#menu-slidepanel-toggle svg {
+	width: 34px;
+	-webkit-transition: width .10s;
+	transition: width .10s;
+}
+#menu-slidepanel-toggle.open svg {
+	width: 0px;
+}
+#menu-slidepanel-toggle span.menu-nav-x {
+	background-color: #414042;
+	display: block;
+	height: 0px;
+	left: 50%;
+	margin-left: -0px;
+	position: absolute;
+	top: 10px;
+	width: 0px;
+	transform: rotate(0deg);
+	-webkit-transition: height .10s, width .03s, top .10s, transform .20s, margin-left .10s ;
+	transition: height .10s, width .03s, top .10s, transform .20s, margin-left .10s ;
+}
+#menu-slidepanel-toggle.open span.menu-nav-x {
+	height: 30px;
+	margin-left: -1.5px;
+	top: 20px;
+	width: 2px;
+}
+#menu-slidepanel-toggle.open span.menu-nav-x.nth1 {
+	transform: rotate(135deg);
+}
+#menu-slidepanel-toggle.open span.menu-nav-x.nth2 {
+	transform: rotate(225deg);
+}
+
+#social-slidepanel-toggle span.menu-text {
+	top: 6px;
+}
+#social-slidepanel-toggle span.social-nav-dot {
+	background-color: #414042;
+	border-radius: 50%;
+	height: 6px;
+	left: 50%;
+	margin-left: -3px;
+	width: 6px;
+	transform: rotate(0deg);
+	-webkit-transition: border-radius .05s, height .10s, width .10s, top .10s, transform .20s, margin-left .10s ;
+	transition: border-radius .05s, height .10s, width .10s, top .10s, transform .20s, margin-left .10s ;
+}
+#social-slidepanel-toggle span.social-nav-dot.nth1 {
+	top: 36px;
+}
+#social-slidepanel-toggle span.social-nav-dot.nth2 {
+	top: 50px;
+}
+#social-slidepanel-toggle.open span.social-nav-dot {
+	border-radius: 0;
+	height: 30px;
+	margin-left: -1.5px;
+	top: 32px;
+	width: 2px;
+}
+#social-slidepanel-toggle.open span.social-nav-dot.nth1 {
+	transform: rotate(135deg);
+}
+#social-slidepanel-toggle.open span.social-nav-dot.nth2 {
+	transform: rotate(225deg);
+}
+
+
+
+/*
+2.0 - SLIDEPANELS
+*/
+.slidepanel {
+	bottom: 0;
+	color: #fff;
+	height: 100% !important;
+	position: absolute;
+	left: -100%;
+	top: 0;
+	width: calc(100% - 66px);
+	width: 100%;
+	z-index: 999;
+	-webkit-transition: left .20s;
+	transition: left .20s;
+}
+.slidepanel.open {
+	left: 0;
+	z-index: 1000;
+}
+.slidepanel a {
+	color: #0095A8;
+}
+.slidepanel a:visited {
+	color: #FB8C00;
+}
+#menu-slidepanel { /* Menu slidepanel */
+	background-color: #414042;
+}
+#social-slidepanel { /* Social slidepanel */
+	background-color: blue; /*#414042;*/
+}
