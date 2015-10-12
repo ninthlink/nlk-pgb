@@ -84,6 +84,13 @@ class NLKThemeLayout {
 /**
  * New layout elements
  */
+add_action('tha_content_before', 'nlk_top_nav');
+function nlk_top_nav() { ?>
+	<nav>
+	<?php wp_nav_menu( array( 'theme_location' => 'page_order', 'items_wrap' => '<ul id="%1$s" class="nav nav-pills nav-stacked %2$s">%3$s</ul>', 'depth' => 1 ) ); ?>
+	</nav>
+<?php }
+
 function nlk_get_pagelink_next( $previous = false ) {
 	$output = false;
 	$class = ( $previous ? 'prev' : 'next' );
@@ -184,7 +191,7 @@ function nlk_ajax_pagination() {
 	if ( $nextpage->have_posts() ) :
 		while ( $nextpage->have_posts() ) : $nextpage->the_post();
 			$data->html = '<article id="post-' . get_the_ID() . '" class="row">' .
-				//nlk_get_pagelink_next( true ) .
+				//nlk_get_pagelink_next( true ) . // this seems to reset the wp_query to the beginning so everything gets wonky. Commenting out for now.
 				'<header class="col-md-12">' .
 				the_title('<h1>', '</h1>', false) .
 				'</header>' .
