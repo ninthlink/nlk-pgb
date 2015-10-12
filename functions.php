@@ -101,6 +101,8 @@ function nlk_get_pagelink_next( $previous = false ) {
 				'<a href="' . get_permalink() . '"><h3>' . get_the_title() . '</h3>' . get_the_subtitle( get_the_ID(), '<h5 class="page-sub-title">', '</h5>', false ) . '</a></div>';
 		endwhile;
 	endif;
+
+	wp_reset_query();
 	return $output;
 }
 function nlk_pagelink_next() {
