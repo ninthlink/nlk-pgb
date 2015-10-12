@@ -88,6 +88,7 @@ function nlk_get_pagelink_next( $previous = false ) {
 	$output = false;
 	$class = ( $previous ? 'prev' : 'next' );
 	$page_id = ( $previous ? get_previous_page_id() : get_next_page_id() );
+	if ( ! $page_id ) return false;
 	$args = array(
 		'post_type'   => array( 'page', 'post' ),
 		'post__in'    => array( $page_id )
