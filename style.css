@@ -215,6 +215,10 @@ body.slide-open {
 
 
 /* DEBUG */
+nav#top-nav {
+	background-color: #fff;
+	position: fixed;
+}
 nav#top-nav .current-menu-item a {
 	background-color: #eee;
 }

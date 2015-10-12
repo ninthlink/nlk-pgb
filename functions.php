@@ -87,7 +87,7 @@ class NLKThemeLayout {
 add_action('tha_content_before', 'nlk_top_nav');
 function nlk_top_nav() { ?>
 	<nav id="top-nav">
-	<?php wp_nav_menu( array( 'theme_location' => 'page_order', 'items_wrap' => '<ul id="%1$s" class="nav nav-pills %2$s">%3$s</ul>', 'depth' => 1 ) ); ?>
+	<?php wp_nav_menu( array( 'theme_location' => 'page_order', 'items_wrap' => '<ul id="%1$s" class="nav nav-pills nav-justified %2$s">%3$s</ul>', 'depth' => 1 ) ); ?>
 	</nav>
 <?php }
 

@@ -8,6 +8,10 @@
 		return element.attr('data-id');
 	}
 
+	$(document).on( 'click', '#top-nav a', function( event ) {
+		event.preventDefault();
+	});
+
 	$(document).on( 'click', '.page-next a', function( event ) {
 		event.preventDefault();
 		
