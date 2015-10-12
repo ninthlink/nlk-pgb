@@ -84,9 +84,10 @@ class NLKThemeLayout {
 /**
  * New layout elements
  */
-function get_footer_next() {
-	$footer = false;
-	$page_id = get_next_page_id();
+function nlk_get_pagelink_next( $previous = false ) {
+	$output = false;
+	$class = ( $previous ? 'prev' : 'next' );
+	$page_id = ( $previous ? get_previous_page_id() : get_next_page_id() );
 	$args = array(
 		'post_type'   => array( 'page', 'post' ),
 		'post__in'    => array( $page_id )
@@ -96,15 +97,19 @@ function get_footer_next() {
 	if ( $nextpage->have_posts() ) :
 		while ( $nextpage->have_posts() ) :
 			$nextpage->the_post();
-			$footer = '<footer id="next-' . get_the_ID() . '" class="footer-next text-center col-md-12" data-target="' . get_permalink() . '" data-id="' . get_the_ID() . '">' .
-				'<a href="' . get_permalink() . '"><h3>' . get_the_title() . '</h3>' . get_the_subtitle( get_the_ID(), '<h5 class="page-sub-title">', '</h5>', false ) . '</a></footer>';
+			$output = '<div id="next-' . get_the_ID() . '" class="row footer-' . $class . ' text-center" data-target="' . get_permalink() . '" data-id="' . get_the_ID() . '">' .
+				'<a href="' . get_permalink() . '"><h3>' . get_the_title() . '</h3>' . get_the_subtitle( get_the_ID(), '<h5 class="page-sub-title">', '</h5>', false ) . '</a></div>';
 		endwhile;
 	endif;
-	return $footer;
+	return $output;
 }
-function footer_next() {
-	$footer = get_footer_next();
-	echo $footer;
+function nlk_pagelink_next() {
+	$output = nlk_get_pagelink_next();
+	echo $output;
+}
+function nlk_pagelink_previous() {
+	$output = nlk_get_pagelink_next( true );
+	echo $output;
 }
 
 
@@ -131,7 +136,7 @@ function get_pages_from_menu() {
 	array_filter($pages);
 	return ( $pages ? $pages : false );
 }
-function get_next_page_id( $not_previous = true ) {
+function get_next_page_id( $previous = flase ) {
 	$page_id = false;
 	$index = 0;
 	$pages = get_pages_from_menu();
@@ -144,12 +149,12 @@ function get_next_page_id( $not_previous = true ) {
 	else :
 		return false;
 	endif;
-	$index = ( $not_previous ? $next : $prev );
+	$index = ( ! $previous ? $next : $prev );
 	$page_id = ( array_key_exists($index, $pages) ? $pages[$index] : false );
 	return $page_id;
 }
 function get_previous_page_id() {
-	$page_id = get_next_page_id( false );
+	$page_id = get_next_page_id( true );
 	return $page_id;
 }
 

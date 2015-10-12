@@ -17,6 +17,8 @@ get_header(); ?>
 
 			<?php while ( have_posts() ) : the_post(); ?>
 
+				<?php nlk_pagelink_previous(); ?>
+
 				<article id="post-<?php the_ID(); ?>" <?php post_class( 'row' ); ?>>
 
 					<header class="col-md-12">
@@ -35,9 +37,9 @@ get_header(); ?>
 
 					</div>
 
-					<?php footer_next(); ?>
-
 				</article>
+
+				<?php nlk_pagelink_next(); ?>
 
 			<?php endwhile; // end of the loop. ?>
 
