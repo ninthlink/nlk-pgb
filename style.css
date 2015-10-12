@@ -21,11 +21,11 @@ body {
 	height: 100%;
 	height: 100vh;
 	margin-left: 60px; /* fix for left side menu bar */
+	overflow-y: scroll;
 	position: relative; /* fix for full width slidepanel */
 }
 body.slide-open {
-	overflow-y: scroll;
-	position: fixed; /* These allow the flop out panel to remain fixed */
+	/*position: fixed; /* These allow the flop out panel to remain fixed */
 }
 
 /* 1.0 - LEFT NAVBAR */
@@ -171,30 +171,46 @@ body.slide-open {
 		color: #fff;
 		height: 100%;
 		height: 100vh;
-		position: absolute;
-		left: 0;
+		position: fixed;
+		left: 60px;
 		right: 0;
-		top: -100%;
-		width: 100%;
+		width: calc(100% - 60px);
 		z-index: 999;
-		-webkit-transition: top .350s ease-in;
-		transition: top .350s cubic-bezier(0.42,0,0.58,1);
+		-webkit-transform: -webkit-translate(0,-100%);
+		-webkit-transition: -webkit-transform .350s cubic-bezier(0.42,0,0.58,1);
+		transform: translate(0,-100%);
+		transition: transform .350s cubic-bezier(0.42,0,0.58,1);
 	}
 	.slidepanel.open {
-		top: 0;
 		z-index: 1000;
+		-webkit-transform: -webkit-translate(0,0);
+		transform: translate(0,0);
+	}
+	.admin-bar .slidepanel.open {
+		top: 31px;
 	}
 	.slidepanel a {
 		color: #0095A8;
 	}
 	.slidepanel a:visited {
-		color: #FB8C00;
+		color: #009999;
 	}
 	#menu-slidepanel { /* Menu slidepanel */
 		background-color: #414042;
 	}
 	#social-slidepanel { /* Social slidepanel */
-		background-color: darkblue; /*#414042;*/
+		background-color: #111; /*#414042;*/
+	}
+
+	#content {
+		-webkit-transform: -webkit-translate(0,0);
+		-webkit-transition: -webkit-transform .350s cubic-bezier(0.42,0,0.58,1);
+		transform: translate(0,0);
+		transition: transform .350s cubic-bezier(0.42,0,0.58,1);
+	}
+	.slide-open #content {
+		-webkit-transform: -webkit-translate(0, 100vh);
+		transform: translate(0, 100vh);
 	}
 
 

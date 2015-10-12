@@ -12,7 +12,8 @@
 		event.preventDefault();
 		
 		pageID = get_next_page_id( $(this) );
-		console.log(pageID);
+
+		// Get the next...
 		$.ajax({
 			url: ajaxpagination.ajaxurl,
 			type: 'post',
@@ -22,7 +23,7 @@
 				id: pageID
 			},
 			success: function( data ) {
-				console.log(data);
+				//console.log(data);
 				var obj = JSON.parse(data);
 				console.log(obj);
 				$('#content').find( 'article:last' ).after( obj.html );
