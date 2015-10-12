@@ -26,7 +26,7 @@
 				console.log(data);
 				var obj = JSON.parse(data);
 				console.log(obj);
-				$('#content').find( 'div#next-' + pageID ).replaceWith( obj.html );
+				$('#content').find( 'article:last' ).append( obj.html );
 				$('html, body').animate({
 					scrollTop: $("#post-" + pageID).offset().top
 				}, 1000);

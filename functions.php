@@ -98,7 +98,7 @@ function nlk_get_pagelink_next( $previous = false ) {
 	if ( $nextpage->have_posts() ) :
 		while ( $nextpage->have_posts() ) :
 			$nextpage->the_post();
-			$output = '<div id="' . $class . '-' . get_the_ID() . '" class="row page-' . $class . ' text-center" data-target="' . get_permalink() . '" data-id="' . get_the_ID() . '">' .
+			$output = '<div id="' . $class . '-' . get_the_ID() . '" class="page-' . $class . ' text-center col-md-12" data-target="' . get_permalink() . '" data-id="' . get_the_ID() . '">' .
 				'<a href="' . get_permalink() . '" data-id="' . get_the_ID() . '"><h3>' . get_the_title() . '</h3>' . get_the_subtitle( get_the_ID(), '<h5 class="page-sub-title">', '</h5>', false ) . '</a></div>';
 		endwhile;
 	endif;
@@ -110,7 +110,7 @@ function nlk_pagelink_next() {
 	$output = nlk_get_pagelink_next();
 	echo $output;
 }
-function nlk_pagelink_previous() {
+function nlk_pagelink_prev() {
 	$output = nlk_get_pagelink_next( true );
 	echo $output;
 }
@@ -183,16 +183,16 @@ function nlk_ajax_pagination() {
 
 	if ( $nextpage->have_posts() ) :
 		while ( $nextpage->have_posts() ) : $nextpage->the_post();
-			$data->html = nlk_get_pagelink_next( true ) .
-				'<article id="post-' . get_the_ID() . '" class="row">' .
+			$data->html = '<article id="post-' . get_the_ID() . '" class="row">' .
+				nlk_get_pagelink_next( true ) .
 				'<header class="col-md-12">' .
 				the_title('<h1>', '</h1>', false) .
 				'</header>' .
 				'<div class="entry-content col-md-12">' .
 				nl2br( get_the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ) ) .
 				'</div><!-- .entry-content -->' .
-				'</article>' .
-				nlk_get_pagelink_next();
+				nlk_get_pagelink_next() .
+				'</article>';
 
 		endwhile; // end of the loop.
 	endif;
