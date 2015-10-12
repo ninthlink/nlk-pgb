@@ -23,7 +23,7 @@
 				id: pageID
 			},
 			success: function( data ) {
-				//console.log(data);
+				console.log(data);
 				var obj = JSON.parse(data);
 				console.log(obj);
 				$('#content').find( 'article:last' ).after( obj.html );

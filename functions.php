@@ -166,10 +166,10 @@ function get_previous_page_id() {
 /**
  * AJAX
  */
-add_action( 'wp_ajax_nopriv_ajax_pagination', 'my_ajax_pagination' );
-add_action( 'wp_ajax_ajax_pagination', 'my_ajax_pagination' );
+add_action( 'wp_ajax_nopriv_ajax_pagination', 'nlk_ajax_pagination' );
+add_action( 'wp_ajax_ajax_pagination', 'nlk_ajax_pagination' );
 
-function my_ajax_pagination() {
+function nlk_ajax_pagination() {
 	$query_vars = json_decode( stripslashes( $_POST['query_vars'] ), true );
 	$data = new stdClass();
 	
