@@ -218,6 +218,7 @@ body.slide-open {
 nav#top-nav {
 	background-color: #fff;
 	position: fixed;
+	z-index: 99;
 }
 nav#top-nav .current-menu-item a {
 	background-color: #eee;

@@ -27,13 +27,15 @@
 				id: pageID
 			},
 			success: function( data ) {
-				console.log(data);
+				//console.log(data);
 				var obj = JSON.parse(data);
-				console.log(obj);
+				//console.log(obj);
 				$('#content').find( 'article:last' ).after( obj.html );
 				$('html, body').animate({
 					scrollTop: $("#post-" + pageID).offset().top
-				}, 1000);
+				}, 1000, 'easeInOut', function(){
+					$('article:first').remove();
+				});
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) { 
 				console.log( XMLHttpRequest );
