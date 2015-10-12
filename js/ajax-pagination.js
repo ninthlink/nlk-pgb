@@ -27,6 +27,9 @@
 				var obj = JSON.parse(data);
 				console.log(obj);
 				$('#content').find( 'article:last' ).after( obj.html );
+				$('html, body').animate({
+					scrollTop: $("#post-" + pageID).offset().top
+				}, 2000);
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) { 
 				console.log( XMLHttpRequest );
