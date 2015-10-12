@@ -183,15 +183,16 @@ function nlk_ajax_pagination() {
 
 	if ( $nextpage->have_posts() ) :
 		while ( $nextpage->have_posts() ) : $nextpage->the_post();
-			$data->html = '<article id="post-' . get_the_ID() . '" class="row">' .
+			$data->html = nlk_get_pagelink_next( true ) .
+				'<article id="post-' . get_the_ID() . '" class="row">' .
 				'<header class="col-md-12">' .
 				the_title('<h1>', '</h1>', false) .
 				'</header>' .
 				'<div class="entry-content col-md-12">' .
-				nl2br( get_the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ) ).
+				nl2br( get_the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'pgb' ) ) ) .
 				'</div><!-- .entry-content -->' .
-				get_footer_next() .
-				'</article>';
+				'</article>' .
+				nlk_get_pagelink_next();
 
 		endwhile; // end of the loop.
 	endif;
