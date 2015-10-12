@@ -184,7 +184,7 @@ function nlk_ajax_pagination() {
 	if ( $nextpage->have_posts() ) :
 		while ( $nextpage->have_posts() ) : $nextpage->the_post();
 			$data->html = '<article id="post-' . get_the_ID() . '" class="row">' .
-				nlk_get_pagelink_next( true ) .
+				//nlk_get_pagelink_next( true ) .
 				'<header class="col-md-12">' .
 				the_title('<h1>', '</h1>', false) .
 				'</header>' .
