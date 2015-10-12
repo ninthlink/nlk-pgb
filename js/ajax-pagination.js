@@ -5,10 +5,10 @@
 	}
 
 	function get_next_page_id( element ) {
-		return element.parents('footer').attr('data-id');
+		return element.attr('data-id');
 	}
 
-	$(document).on( 'click', '.footer-next a', function( event ) {
+	$(document).on( 'click', '.page-next a', function( event ) {
 		event.preventDefault();
 		
 		pageID = get_next_page_id( $(this) );
@@ -29,7 +29,7 @@
 				$('#content').find( 'article:last' ).after( obj.html );
 				$('html, body').animate({
 					scrollTop: $("#post-" + pageID).offset().top
-				}, 2000);
+				}, 1000);
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) { 
 				console.log( XMLHttpRequest );

@@ -98,8 +98,8 @@ function nlk_get_pagelink_next( $previous = false ) {
 	if ( $nextpage->have_posts() ) :
 		while ( $nextpage->have_posts() ) :
 			$nextpage->the_post();
-			$output = '<div id="next-' . get_the_ID() . '" class="row footer-' . $class . ' text-center" data-target="' . get_permalink() . '" data-id="' . get_the_ID() . '">' .
-				'<a href="' . get_permalink() . '"><h3>' . get_the_title() . '</h3>' . get_the_subtitle( get_the_ID(), '<h5 class="page-sub-title">', '</h5>', false ) . '</a></div>';
+			$output = '<div id="' . $class . '-' . get_the_ID() . '" class="row page-' . $class . ' text-center" data-target="' . get_permalink() . '" data-id="' . get_the_ID() . '">' .
+				'<a href="' . get_permalink() . '" data-id="' . get_the_ID() . '"><h3>' . get_the_title() . '</h3>' . get_the_subtitle( get_the_ID(), '<h5 class="page-sub-title">', '</h5>', false ) . '</a></div>';
 		endwhile;
 	endif;
 
