@@ -14,7 +14,7 @@
 
 	$(document).on( 'click', '.page-next a', function( event ) {
 		event.preventDefault();
-		
+		var rm = $('article');
 		pageID = get_next_page_id( $(this) );
 
 		// Get the next...
@@ -34,7 +34,7 @@
 				$('html, body').animate({
 					scrollTop: $("#post-" + pageID).offset().top
 				}, 1000, function(){
-					$('article:first').remove();
+					rm.remove();
 				});
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) { 
