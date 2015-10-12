@@ -33,7 +33,7 @@
 				$('#content').find( 'article:last' ).after( obj.html );
 				$('html, body').animate({
 					scrollTop: $("#post-" + pageID).offset().top
-				}, 1000, 'easeInOut', function(){
+				}, 1000, function(){
 					$('article:first').remove();
 				});
 			},
