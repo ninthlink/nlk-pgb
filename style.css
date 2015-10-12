@@ -215,6 +215,9 @@ body.slide-open {
 
 
 /* DEBUG */
+nav#top-nav .current-menu-item a {
+	background-color: #eee;
+}
 div.page-next,
 div.page-prev {
 	background-color: rgba(0,0,0,.25);
