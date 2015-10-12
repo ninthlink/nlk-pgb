@@ -136,7 +136,7 @@ function get_pages_from_menu() {
 	array_filter($pages);
 	return ( $pages ? $pages : false );
 }
-function get_next_page_id( $previous = flase ) {
+function get_next_page_id( $previous = false ) {
 	$page_id = false;
 	$index = 0;
 	$pages = get_pages_from_menu();
