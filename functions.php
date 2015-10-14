@@ -57,8 +57,8 @@ function pgb_child_enqueue_scripts() {
  */
 add_action( 'template_redirect', array( 'NLKThemeLayout', 'removeBlocks' ) ); // Remove unused block/layout elements
 add_action( 'pgb_block_navbar', array( 'NLKThemeLayout', 'navbarLeft' ), 10 ); // Add new left menu
-add_action( 'pgb_block_navbar', array( 'NLKThemeLayout', 'menuslidepanel' ), 20 ); // Add menu slidepanelout page
-add_action( 'pgb_block_navbar', array( 'NLKThemeLayout', 'socialslidepanel' ), 30 ); // Add menu slidepanelout page
+add_action( 'tha_content_before', array( 'NLKThemeLayout', 'menuslidepanel' ), 20 ); // Add menu slidepanelout page
+add_action( 'tha_content_before', array( 'NLKThemeLayout', 'socialslidepanel' ), 30 ); // Add menu slidepanelout page
 //add_action( 'wp_footer', array( 'NLKThemeLayout', 'blockFooterNext' ), 100 ); // Add footer next block
 
 class NLKThemeLayout {
@@ -87,7 +87,7 @@ class NLKThemeLayout {
 add_action('tha_content_before', 'nlk_top_nav');
 function nlk_top_nav() { ?>
 	<nav id="top-nav">
-	<?php wp_nav_menu( array( 'theme_location' => 'page_order', 'items_wrap' => '<ul id="%1$s" class="nav nav-pills nav-justified %2$s">%3$s</ul>', 'depth' => 1 ) ); ?>
+	<?php wp_nav_menu( array( 'theme_location' => 'page_order', 'menu_class' => 'ajax-nav', 'items_wrap' => '<ul id="%1$s" class="nav nav-pills nav-justified %2$s">%3$s</ul>', 'depth' => 1 ) ); ?>
 	</nav>
 <?php }
 
@@ -105,7 +105,7 @@ function nlk_get_pagelink_next( $previous = false ) {
 	if ( $nextpage->have_posts() ) :
 		while ( $nextpage->have_posts() ) :
 			$nextpage->the_post();
-			$output = '<div id="' . $class . '-' . get_the_ID() . '" class="page-' . $class . ' text-center col-md-12" data-target="' . get_permalink() . '" data-id="' . get_the_ID() . '">' .
+			$output = '<div id="' . $class . '-' . get_the_ID() . '" class="page-' . $class . ' text-center col-md-12 ajax-nav" data-target="' . get_permalink() . '" data-id="' . get_the_ID() . '">' .
 				'<a href="' . get_permalink() . '" data-id="' . get_the_ID() . '"><h3>' . get_the_title() . '</h3>' . get_the_subtitle( get_the_ID(), '<h5 class="page-sub-title">', '</h5>', false ) . '</a></div>';
 		endwhile;
 	endif;
@@ -180,7 +180,8 @@ function nlk_ajax_pagination() {
 	$query_vars = json_decode( stripslashes( $_POST['query_vars'] ), true );
 	$data = new stdClass();
 	
-	$page_id = $_POST['id'];
+	$pageURL = $_POST['url'];
+	$page_id = url_to_postid( $pageURL );
 	$args = array(
 		'post_type'   => array( 'page', 'post' ),
 		'post__in'    => array( $page_id )
@@ -190,7 +191,7 @@ function nlk_ajax_pagination() {
 
 	if ( $nextpage->have_posts() ) :
 		while ( $nextpage->have_posts() ) : $nextpage->the_post();
-			$data->html = '<article id="post-' . get_the_ID() . '" class="row slidein">' .
+			$data->html = '<article id="post-' . get_the_ID() . '" class="row">' .
 				//nlk_get_pagelink_next( true ) . // this seems to reset the wp_query to the beginning so everything gets wonky. Commenting out for now.
 				'<header class="col-md-12">' .
 				the_title('<h1>', '</h1>', false) .

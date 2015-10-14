@@ -10,10 +10,10 @@ var slidePanel;
 	var slide;
 	slide = slidePanel = {
 		triggers   : undefined, // slidepanel triggers
-		containers : undefined, // slidepanel containers
+		//containers : undefined, // slidepanel containers
 		init : function() {
-			slide.triggers   = $('a[data-action="slidepanel"]');
-			slide.containers = $('div.slidepanel');
+			slide.triggers   = $('a[data-action="slide"]');
+			//slide.containers = $('div.slidepanel');
 			slide.clickListener();
 		},
 		clickListener : function() {
@@ -28,20 +28,7 @@ var slidePanel;
 			});
 		},
 		toggleslidepanel : function( t, c, b ) {
-			slide.containers.not( c ).removeClass('open');
-			slide.triggers.not( t ).each(function(){
-				var origText = $(this).attr('data-text');
-				$(this).removeClass('open').find(".menu-text").text( origText );
-			});
-			if ( c.hasClass('open') ) {
-				b.removeClass('slide-open');
-				t.removeClass('open').find(".menu-text").text( t.attr('data-text') );
-				c.removeClass('open');
-			} else {
-				b.addClass('slide-open');
-				t.addClass('open').find(".menu-text").text("close");
-				c.addClass('open');
-			}
+			c.toggleClass('slide');
 		}
 	}
 	$(function(){ slidePanel.init(); });

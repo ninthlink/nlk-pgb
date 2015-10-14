@@ -4,18 +4,10 @@
 		return element.parent('li').attr('data-page-number');
 	}
 
-	function get_next_page_id( element ) {
-		return element.attr('data-id');
-	}
-
-	$(document).on( 'click', '#top-nav a', function( event ) {
+	$(document).on( 'click', '.ajax-nav a', function( event ) {
 		event.preventDefault();
-	});
-
-	$(document).on( 'click', '.page-next a', function( event ) {
-		event.preventDefault();
-		var rm = $('article');
-		pageID = get_next_page_id( $(this) );
+		var curArticle = $('article'),
+			nextPageUrl = $(this).attr('href');
 
 		// Get the next...
 		$.ajax({
@@ -24,15 +16,21 @@
 			data: {
 				action: 'ajax_pagination',
 				query_vars: ajaxpagination.query_vars,
-				id: pageID
+				url: nextPageUrl
 			},
 			success: function( data ) {
 				//console.log(data);
 				var obj = JSON.parse(data);
-				//console.log(obj);
+				// Write the new page content to the DOM
 				$('#content').find( 'article:last' ).after( obj.html );
-				$("#post-" + pageID).removeClass('slidein');
-				rm.remove();
+				// If the Slide Menu is open, close it
+				if ( $('#menu-slidepanel').hasClass('slide') ) {
+					$('#menu-slidepanel').toggleClass('slide');
+				}
+				// Slide up the previous content then remove it from the DOM
+				curArticle.slideUp( 350, function(){
+					$(this).remove();
+				});
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) { 
 				console.log( XMLHttpRequest );

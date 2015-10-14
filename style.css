@@ -14,8 +14,9 @@
 /*
 
 1.0 - Navbar
-2.0 - Slidepanels
-3.0 - Content
+2.0 - Animation
+3.0 - Slidepanels
+4.0 - Content
 
 */
 body {
@@ -166,8 +167,29 @@ body.slide-open {
 	}
 
 
+/* 2.0 - ANIMATION */
+	.slideup {
+		-webkit-transform: -webkit-translate(0, 100vh);
+		-webkit-transition: -webkit-transform .350s cubic-bezier(0.42,0,0.58,1);
+		transform: translate(0, 100vh);
+		transition: transform .350s cubic-bezier(0.42,0,0.58,1);
+	}
+	.slidedown {
+		-webkit-transform: -webkit-translate(0,-100%);
+		-webkit-transition: -webkit-transform .350s cubic-bezier(0.42,0,0.58,1);
+		transform: translate(0,-100%);
+		transition: transform .350s cubic-bezier(0.42,0,0.58,1);
+	}
+	.slideup.slide,
+	.slidedown.slide {
+		-webkit-transform: -webkit-translate(0,0);
+		transform: translate(0,0);
+	}
 
-/* 2.0 - SLIDEPANELS */
+
+/* 3.0 - SLIDEPANELS */
+
+/* SlidePanels are the menu and social full page drop downs */
 	.slidepanel {
 		color: #fff;
 		height: 100%;
@@ -177,17 +199,8 @@ body.slide-open {
 		right: 0;
 		width: calc(100% - 60px);
 		z-index: 999;
-		-webkit-transform: -webkit-translate(0,-100%);
-		-webkit-transition: -webkit-transform .350s cubic-bezier(0.42,0,0.58,1);
-		transform: translate(0,-100%);
-		transition: transform .350s cubic-bezier(0.42,0,0.58,1);
 	}
-	.slidepanel.open {
-		z-index: 1000;
-		-webkit-transform: -webkit-translate(0,0);
-		transform: translate(0,0);
-	}
-	.admin-bar .slidepanel.open {
+	.admin-bar .slidepanel {
 		top: 31px;
 	}
 	.slidepanel a {
@@ -203,34 +216,16 @@ body.slide-open {
 		background-color: #111; /*#414042;*/
 	}
 
+
+/* 4.0 - CONTENT */
 	#content {
+		padding-bottom: 0;
 		padding-top: 40px;
-		-webkit-transform: -webkit-translate(0,0);
-		-webkit-transition: -webkit-transform .350s cubic-bezier(0.42,0,0.58,1);
-		transform: translate(0,0);
-		transition: transform .350s cubic-bezier(0.42,0,0.58,1);
 	}
-	.slide-open #content {
-		-webkit-transform: -webkit-translate(0, 100vh);
-		transform: translate(0, 100vh);
-	}
-
-
-/* 3.0 - CONTENT and AJAX */
 	article {
 		background-color: #fff;
-		position: absolute;
+		/*position: absolute;*/
 		width: 100%;
-	}
-	article {
-		-webkit-transform: -webkit-translate(0,0);
-		-webkit-transition: -webkit-transform .350s cubic-bezier(0.42,0,0.58,1);
-		transform: translate(0,0);
-		transition: transform .350s cubic-bezier(0.42,0,0.58,1);
-	}
-	article.slidein {
-		-webkit-transform: -webkit-translate(0, 100vh);
-		transform: translate(0, 100vh);
 	}
 
 

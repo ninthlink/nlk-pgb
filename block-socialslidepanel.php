@@ -6,7 +6,7 @@
  */
 
 ?>
-<div id="social-slidepanel" class="slidepanel">
+<div id="social-slidepanel" class="slidedown slidepanel">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-4 col-twitter">
