@@ -216,10 +216,22 @@ body.slide-open {
 	}
 
 
-/* 3.0 - CONTENT */
+/* 3.0 - CONTENT and AJAX */
 	article {
+		background-color: #fff;
 		position: absolute;
 		width: 100%;
+	}
+	article.slid {
+		-webkit-transform: -webkit-translate(0,0);
+		-webkit-transition: -webkit-transform .350s cubic-bezier(0.42,0,0.58,1);
+		transform: translate(0,0);
+		transition: transform .350s cubic-bezier(0.42,0,0.58,1);
+	}
+	article.sliding {
+		-webkit-transform: -webkit-translate(0, 100vh);
+		transform: translate(0, 100vh);
+	
 	}
 
 

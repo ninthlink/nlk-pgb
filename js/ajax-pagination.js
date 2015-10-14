@@ -31,11 +31,8 @@
 				var obj = JSON.parse(data);
 				//console.log(obj);
 				$('#content').find( 'article:last' ).after( obj.html );
-				$('html, body').animate({
-					scrollTop: $("#post-" + pageID).offset().top
-				}, 1000, function(){
-					rm.remove();
-				});
+				$("#post-" + pageID).removeClass('slidein');
+				rm.remove();
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) { 
 				console.log( XMLHttpRequest );
