@@ -15,6 +15,7 @@
 
 1.0 - Navbar
 2.0 - Slidepanels
+3.0 - Content
 
 */
 body {
@@ -203,6 +204,7 @@ body.slide-open {
 	}
 
 	#content {
+		padding-top: 40px;
 		-webkit-transform: -webkit-translate(0,0);
 		-webkit-transition: -webkit-transform .350s cubic-bezier(0.42,0,0.58,1);
 		transform: translate(0,0);
@@ -211,6 +213,13 @@ body.slide-open {
 	.slide-open #content {
 		-webkit-transform: -webkit-translate(0, 100vh);
 		transform: translate(0, 100vh);
+	}
+
+
+/* 3.0 - CONTENT */
+	article {
+		position: absolute;
+		width: 100%;
 	}
 
 
