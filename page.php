@@ -19,7 +19,7 @@ get_header(); ?>
 
 				<article id="post-<?php the_ID(); ?>" <?php post_class( 'row' ); ?>>
 
-					<?php nlk_pagelink_prev(); ?>
+					<?php //nlk_pagelink_prev(); ?>
 
 					<header class="col-md-12">
 

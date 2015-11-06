@@ -57,8 +57,9 @@ function pgb_child_enqueue_scripts() {
  */
 add_action( 'template_redirect', array( 'NLKThemeLayout', 'removeBlocks' ) ); // Remove unused block/layout elements
 add_action( 'pgb_block_navbar', array( 'NLKThemeLayout', 'navbarLeft' ), 10 ); // Add new left menu
-add_action( 'tha_content_before', array( 'NLKThemeLayout', 'menuslidepanel' ), 20 ); // Add menu slidepanelout page
-add_action( 'tha_content_before', array( 'NLKThemeLayout', 'socialslidepanel' ), 30 ); // Add menu slidepanelout page
+add_action( 'tha_content_before', array( 'NLKThemeLayout', 'menuslidepanel' ), 20 ); // Add menu slidepanel page
+add_action( 'tha_content_before', array( 'NLKThemeLayout', 'socialslidepanel' ), 30 ); // Add social slidepanel page
+add_action( 'tha_content_before', array( 'NLKThemeLayout', 'nlk_top_nav' ), 40 ); // Add top menu
 //add_action( 'wp_footer', array( 'NLKThemeLayout', 'blockFooterNext' ), 100 ); // Add footer next block
 
 class NLKThemeLayout {
@@ -79,23 +80,26 @@ class NLKThemeLayout {
 	static function socialslidepanel() {
 		locate_template( 'block-socialslidepanel.php', true );
 	}
+	static function nlk_top_nav() { ?>
+		<nav id="top-nav">
+			<?php wp_nav_menu( array( 'theme_location' => 'page_order', 'menu_class' => 'ajax-nav', 'items_wrap' => '<ul id="%1$s" class="nav nav-pills nav-justified %2$s">%3$s</ul>', 'depth' => 1 ) ); ?>
+		</nav>
+	<?php }
 }
 
 /**
- * New layout elements
+ * Returns block to link to next page... this is a temporary fix
+ * @param $previous boolean (default: false)
+ * @uses get_next_page_id()
+ * @return HTML or false
  */
-add_action('tha_content_before', 'nlk_top_nav');
-function nlk_top_nav() { ?>
-	<nav id="top-nav">
-	<?php wp_nav_menu( array( 'theme_location' => 'page_order', 'menu_class' => 'ajax-nav', 'items_wrap' => '<ul id="%1$s" class="nav nav-pills nav-justified %2$s">%3$s</ul>', 'depth' => 1 ) ); ?>
-	</nav>
-<?php }
-
 function nlk_get_pagelink_next( $previous = false ) {
 	$output = false;
 	$class = ( $previous ? 'prev' : 'next' );
-	$page_id = ( $previous ? get_previous_page_id() : get_next_page_id() );
+	$page_id = ( $previous ? get_next_page_id( true ) : get_next_page_id() );
+	
 	if ( ! $page_id ) return false;
+	
 	$args = array(
 		'post_type'   => array( 'page', 'post' ),
 		'post__in'    => array( $page_id )
@@ -106,7 +110,7 @@ function nlk_get_pagelink_next( $previous = false ) {
 		while ( $nextpage->have_posts() ) :
 			$nextpage->the_post();
 			$output = '<div id="' . $class . '-' . get_the_ID() . '" class="page-' . $class . ' text-center col-md-12 ajax-nav" data-target="' . get_permalink() . '" data-id="' . get_the_ID() . '">' .
-				'<a href="' . get_permalink() . '" data-id="' . get_the_ID() . '"><h3>' . get_the_title() . '</h3>' . get_the_subtitle( get_the_ID(), '<h5 class="page-sub-title">', '</h5>', false ) . '</a></div>';
+				'<a href="' . get_permalink() . '" data-id="' . get_the_ID() . '" data-page="ajax"><h3>' . get_the_title() . '</h3>' . get_the_subtitle( get_the_ID(), '<h5 class="page-sub-title">', '</h5>', false ) . '</a></div>';
 		endwhile;
 	endif;
 
@@ -124,13 +128,12 @@ function nlk_pagelink_prev() {
 
 
 /**
- * Helper functions
+ * Returns an Array containing Page IDs as set in 'page_oder' menu
+ * @param none
+ * @uses get_nav_menu_locations(), wp_get_nav_menu_object(), wp_get_nav_menu_items()
+ * @return array of page IDs or false
  */
 function get_pages_from_menu() {
-	$args = array(
-		'order'     => 'ASC',
-		'orderby'   => 'menu_order',
-		);
 	$menu_name = 'page_order';
 	$pages = array();
 	if ( ( $locations = get_nav_menu_locations() ) && isset( $locations[ $menu_name ] ) ) {
@@ -138,7 +141,7 @@ function get_pages_from_menu() {
 		$menu_items = wp_get_nav_menu_items($menu->term_id);
 		foreach ($menu_items as $item) {
 			if ( ! $item->menu_item_parent ) { // Only top level menu items...
-				$id = url_to_postid( $item->url );
+				$id = ( ! url_to_postid( $item->url ) ? (int) get_option( 'page_on_front' ) : url_to_postid( $item->url ) );
 				$pages[] = $id;
 			}
 		}
@@ -146,12 +149,19 @@ function get_pages_from_menu() {
 	array_filter($pages);
 	return ( $pages ? $pages : false );
 }
+
+/**
+ * Returns Page ID of next (or previous) element in Pages Array based on current page ID set in wp_query
+ * @param $previous boolean (default: false)
+ * @uses get_pages_from_menu()
+ * @return integer or false
+ */
 function get_next_page_id( $previous = false ) {
 	$page_id = false;
 	$index = 0;
 	$pages = get_pages_from_menu();
-	if ( ! $pages ) return false;
-	$current_page = ( is_front_page() ? 0 : get_the_ID() );
+	$current_page = ( is_front_page() ? (int) get_option( 'page_on_front' ) : get_the_ID() );
+	if ( ! $current_page ) return false; //var_dump($current_page);
 	if ( in_array( $current_page, $pages ) ) : // Our current page is somewhere in the page stream
 		$current_index = array_search( $current_page, $pages );
 		$next = $current_index + 1;
@@ -168,6 +178,21 @@ function get_previous_page_id() {
 	return $page_id;
 }
 
+/**
+ * Add custom attributes to menu items for Ajax Pagination uses
+ * @param $atts, $item, $args
+ * @return $atts
+ */
+add_filter( 'nav_menu_link_attributes', 'add_custom_menu_atts', 10, 3 );
+function add_custom_menu_atts( $atts, $item, $args ) {
+	if ( $args->theme_location == 'page_order' ) {
+		$atts['data-page'] = 'ajax';
+		$atts['data-menu-id'] = $item->ID;
+		$atts['data-target-page-id'] = ( ! url_to_postid( $item->url ) ? (int) get_option( 'page_on_front' ) : url_to_postid( $item->url ) );
+	}
+    return $atts;
+}
+
 
 
 /**
@@ -180,8 +205,9 @@ function nlk_ajax_pagination() {
 	$query_vars = json_decode( stripslashes( $_POST['query_vars'] ), true );
 	$data = new stdClass();
 	
-	$pageURL = $_POST['url'];
-	$page_id = url_to_postid( $pageURL );
+	$page_url = $_POST['url'];
+	$page_id = ( ! url_to_postid( $page_url ) ? (int) get_option( 'page_on_front' ) : url_to_postid( $page_url ) );
+
 	$args = array(
 		'post_type'   => array( 'page', 'post' ),
 		'post__in'    => array( $page_id )

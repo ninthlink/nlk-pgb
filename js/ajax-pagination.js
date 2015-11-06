@@ -1,13 +1,11 @@
 (function($) {
 
-	function get_adjacent_page_number( element ) {
-		return element.parent('li').attr('data-page-number');
-	}
-
-	$(document).on( 'click', '.ajax-nav a', function( event ) {
+	$(document).on( 'click', 'a[data-page="ajax"]', function( event ) {
 		event.preventDefault();
 		var curArticle = $('article'),
-			nextPageUrl = $(this).attr('href');
+			nextPageUrl = $(this).attr('href'),
+			nextPageId = $(this).attr('data-target-page-id'),
+			nextMenuId = $(this).attr('data-menu-id');
 
 		// Get the next...
 		$.ajax({
@@ -23,6 +21,11 @@
 				var obj = JSON.parse(data);
 				// Write the new page content to the DOM
 				$('#content').find( 'article:last' ).after( obj.html );
+				// Update menu current classes
+				$('.ajax-nav .current-menu-item').each(function(){
+					$(this).removeClass('current-menu-item current_page_item');
+				});
+				$('.ajax-nav .menu-item-' + nextMenuId).addClass('current-menu-item current_page_item');
 				// If the Slide Menu is open, close it
 				if ( $('#menu-slidepanel').hasClass('slide') ) {
 					$('#menu-slidepanel').toggleClass('slide');
