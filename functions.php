@@ -110,7 +110,7 @@ function nlk_get_pagelink_next( $previous = false ) {
 		while ( $nextpage->have_posts() ) :
 			$nextpage->the_post();
 			$output = '<div id="' . $class . '-' . get_the_ID() . '" class="page-' . $class . ' text-center col-md-12 ajax-nav" data-target="' . get_permalink() . '" data-id="' . get_the_ID() . '">' .
-				'<a href="' . get_permalink() . '" data-id="' . get_the_ID() . '" data-page="ajax"><h3>' . get_the_title() . '</h3>' . get_the_subtitle( get_the_ID(), '<h5 class="page-sub-title">', '</h5>', false ) . '</a></div>';
+				'<a href="' . get_permalink() . '" data-id="' . get_the_ID() . '" data-page="ajax"><h3>' . get_the_title() . '</h3>' . pgb_get_the_subtitle( get_the_ID(), '<h5 class="page-sub-title">', '</h5>', false ) . '</a></div>';
 		endwhile;
 	endif;
 
